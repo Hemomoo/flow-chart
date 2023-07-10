@@ -210,4 +210,22 @@ export default function nodeRegister() {
     },
     true,
   );
+
+  // 自定义开始
+  // Graph.registerNode('start-circle', {
+  //   inherit: 'circle', // 继承圆
+  //   width: 52,
+  //   height: 52,
+  //   attrs: {
+  //     body: {
+  //       strokeWidth: 1,
+  //       stroke: '#5F95FF',
+  //       fill: '#EFF4FF',
+  //     },
+  //     text: {
+  //       fontSize: 12,
+  //       fill: '#262626',
+  //     },
+  //   },
+  // });
 }

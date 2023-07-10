@@ -23,70 +23,11 @@ import { Clipboard } from '@antv/x6-plugin-clipboard';
 import { History } from '@antv/x6-plugin-history';
 import nodeRegister from '../utils/nodeRegistration';
 
-const data = {
-  // 节点
-  nodes: [
-    {
-      id: 'node1',
-      shape: 'rect',
-      x: 40,
-      y: 40,
-      width: 100,
-      height: 40,
-      label: 'hello',
-      attrs: {
-        // body 是选择器名称，选中的是 rect 元素
-        body: {
-          stroke: '#8f8f8f',
-          strokeWidth: 1,
-          fill: '#fff',
-          rx: 6,
-          ry: 6,
-        },
-      },
-    },
-    {
-      id: 'node2',
-      shape: 'rect',
-      x: 160,
-      y: 180,
-      width: 100,
-      height: 40,
-      label: 'world',
-      attrs: {
-        body: {
-          stroke: '#8f8f8f',
-          strokeWidth: 1,
-          fill: '#fff',
-          rx: 6,
-          ry: 6,
-        },
-      },
-    },
-  ],
-  edges: [
-    {
-      shape: 'edge',
-      source: 'node1',
-      target: 'node2',
-      label: 'x6',
-      attrs: {
-        // line 是选择器名称，选中的边的 path 元素
-        line: {
-          stroke: '#8f8f8f',
-          strokeWidth: 1,
-        },
-      },
-    },
-  ],
-};
-
 const container = ref('');
 
 // 控制连接桩显示/隐藏
 const showPorts = (ports, show) => {
   for (let i = 0, len = ports.length; i < len; i += 1) {
-    // eslint-disable-next-line no-param-reassign
     ports[i].style.visibility = show ? 'visible' : 'hidden';
   }
 };
@@ -169,7 +110,19 @@ onMounted(() => {
       }),
     )
     .use(new Snapline())
-    .use(new Keyboard())
+    .use(new Keyboard({
+      enabled: true,
+      guard(self, e) {
+        console.log('e: ', e);
+        console.log('self: ', self);
+        // if (e.altKey) {
+        // // 当按下 alt 键时，忽略所有键盘事件
+        //   return false;
+        // }
+        return true;
+      },
+
+    }))
     .use(new Clipboard())
     .use(new History());
   // #endregion
@@ -252,23 +205,34 @@ onMounted(() => {
   //   target: graph,
   // });
 
-  graph.fromJSON(data); // 渲染元素
   graph.centerContent(); // 居中显示
 
+  // 节点移入
   graph.on('node:mouseenter', () => {
-    console.log('jaj');
     const contai = container.value;
     const ports = contai.querySelectorAll(
       '.x6-port-body',
     );
     showPorts(ports, true);
   });
+  // 节点移除
   graph.on('node:mouseleave', () => {
     const contai = container.value;
     const ports = contai.querySelectorAll(
       '.x6-port-body',
     );
     showPorts(ports, false);
+  });
+
+  // 节点点击
+  graph.on('node:click', (e) => {
+    console.log('e: ', e);
+  });
+
+  graph.bindKey('Delete', () => {
+    // 获取所有选中的元素
+    const cells = graph.getSelectedCells();
+    graph.removeCells(cells); // 删除元素
   });
 });
 

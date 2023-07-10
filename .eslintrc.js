@@ -21,9 +21,11 @@ module.exports = {
       ignorePattern: 'class="([\\s\\S]*?)"|d="([\\s\\S]*?)"', // ignore classes or svg draw attributes
       ignoreUrls: true,
     }],
+    'linebreak-style': [0, 'error', 'windows'], // 声明这是windows操作系统即可。
     'vue/multi-word-component-names': 'off',
     'no-unused-vars': 'off',
     'no-console': 'off',
+    'no-param-reassign': 'off',
   },
   settings: {
     'import/resolver': {
