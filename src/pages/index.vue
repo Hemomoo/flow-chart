@@ -3,12 +3,41 @@
     <div
       id="stencil"
       ref="stencilContainer"
-      class="h-full w-1/5"
+      class="relative h-full w-1/6"
     />
-    <div
-      ref="container"
-      class="h-full w-4/5"
-    />
+
+    <div class="h-full w-5/6">
+      <div class="flex h-[60px] w-full items-center justify-center gap-3">
+        <button
+          class="btn"
+          @click="onUndo"
+        >
+          撤销
+        </button>
+        <button
+          class="btn"
+          @click="onRedo"
+        >
+          重做
+        </button>
+        <button
+          class="btn"
+          @click="big"
+        >
+          放大
+        </button>
+        <button
+          class="btn"
+          @click="small"
+        >
+          缩小
+        </button>
+      </div>
+      <div
+        ref="container"
+        class="h-[5/6-60px] w-full"
+      />
+    </div>
   </div>
 </template>
 <script setup>
@@ -22,8 +51,10 @@ import { Keyboard } from '@antv/x6-plugin-keyboard';
 import { Clipboard } from '@antv/x6-plugin-clipboard';
 import { History } from '@antv/x6-plugin-history';
 import nodeRegister from '../utils/nodeRegistration';
+// import ContextMenuTool from '../utils/ContextMenuTool';
 
 const container = ref('');
+let graph = '';
 
 // 控制连接桩显示/隐藏
 const showPorts = (ports, show) => {
@@ -33,7 +64,7 @@ const showPorts = (ports, show) => {
 };
 
 onMounted(() => {
-  const graph = new Graph({
+  graph = new Graph({
     container: container.value,
     grid: true,
     autoResize: true,
@@ -110,19 +141,11 @@ onMounted(() => {
       }),
     )
     .use(new Snapline())
-    .use(new Keyboard({
-      enabled: true,
-      guard(self, e) {
-        console.log('e: ', e);
-        console.log('self: ', self);
-        // if (e.altKey) {
-        // // 当按下 alt 键时，忽略所有键盘事件
-        //   return false;
-        // }
-        return true;
-      },
-
-    }))
+    .use(
+      new Keyboard({
+        enabled: true,
+      }),
+    )
     .use(new Clipboard())
     .use(new History());
   // #endregion
@@ -200,27 +223,18 @@ onMounted(() => {
   });
   stencil.load([r1, r2, r3, r4, r5, r6], 'group1');
   document.getElementById('stencil').appendChild(stencil.container);
-
-  // const dnd = new Dnd({
-  //   target: graph,
-  // });
-
   graph.centerContent(); // 居中显示
 
   // 节点移入
   graph.on('node:mouseenter', () => {
     const contai = container.value;
-    const ports = contai.querySelectorAll(
-      '.x6-port-body',
-    );
+    const ports = contai.querySelectorAll('.x6-port-body');
     showPorts(ports, true);
   });
   // 节点移除
   graph.on('node:mouseleave', () => {
     const contai = container.value;
-    const ports = contai.querySelectorAll(
-      '.x6-port-body',
-    );
+    const ports = contai.querySelectorAll('.x6-port-body');
     showPorts(ports, false);
   });
 
@@ -234,9 +248,69 @@ onMounted(() => {
     const cells = graph.getSelectedCells();
     graph.removeCells(cells); // 删除元素
   });
+
+  // 监听节点右键事件
+  graph.on('node:contextmenu', ({
+    cell, e, x, y, node, view,
+  }) => {
+    const p = graph.clientToGraph(e.clientX, e.clientY);
+    node.addTools([
+      {
+        name: 'contextmenu',
+        args: {
+          // menu,
+          x: p.x,
+          y: p.y,
+          onHide() {
+            node.removeTools();
+          },
+        },
+      },
+    ]);
+  });
+
+  // 复制
+  graph.bindKey('ctrl+c', () => {
+    const cells = graph.getSelectedCells();// 选中所有被选中的元素
+    if (cells.length) {
+      graph.copy(cells);
+    }
+    return false;
+  });
+
+  //  粘贴
+  graph.bindKey('ctrl+v', () => {
+    if (!graph.isClipboardEmpty()) {
+      const cells = graph.paste({ offset: 32 });
+      graph.cleanSelection();
+      graph.select(cells);
+    }
+    return false;
+  });
 });
+
+// 放大
+function big() {
+  graph.zoom(0.2);
+}
+
+// 缩小
+function small() {
+  graph.zoom(-0.2);
+}
+
+// 重做
+function onRedo() {
+  graph.redo();
+}
+
+// 撤销
+function onUndo() {
+  graph.undo();
+}
 
 // #endregion
 </script>
 
 <style lang="scss" scoped></style>
+../utils/ContextMenuTool

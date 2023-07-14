@@ -26,7 +26,9 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-console': 'off',
     'no-param-reassign': 'off',
+    'global-require': 'off',
   },
+  parser: 'vue-eslint-parser',
   settings: {
     'import/resolver': {
       node: {
