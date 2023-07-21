@@ -34,6 +34,22 @@ onMounted(() => {
       <div class="flex gap-2">
         <router-link to="/edges/edge">边</router-link>
         <router-link to="/edges/arrow">箭头</router-link>
+        <router-link to="/edges/customArrow">自定义箭头</router-link>
+      </div>
+    </div>
+    <!-- 箭头 -->
+    <div>
+      <h2 class="font-bold text-2xl">箭头</h2>
+      <div class="flex gap-2">
+        <router-link to="/arrows/arrow">箭头</router-link>
+        <router-link to="/arrows/customArrow">自定义箭头</router-link>
+      </div>
+    </div>
+    <!--交互  -->
+    <div>
+      <h2 class="font-bold text-2xl">交互</h2>
+      <div class="flex gap-2">
+        <router-link to="/interactions/interaction">交互</router-link>
       </div>
     </div>
   </div>

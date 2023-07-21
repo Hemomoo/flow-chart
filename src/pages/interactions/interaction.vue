@@ -1,11 +1,10 @@
-<!-- 自定义箭头 -->
 <template>
 	<div ref="container" class="h-screen w-screen" />
 </template>
 <script setup>
 import { Graph } from '@antv/x6';
 import { ref, onMounted } from 'vue';
-// import { register, getTeleport } from '@antv/x6-vue-shape';
+
 
 const data = {
 	nodes: [
@@ -69,8 +68,6 @@ const container = ref('');
 onMounted(() => {
 	const graph = new Graph({
 		container: container.value,
-		// width: 800,  // 可以通过设置 width 和 height 固定画布大小，如果不设置，就会以画布容器大小初始化画布
-		// height: 600,
 		autoResize: true,
 		background: {
 			color: '#F2F7FA'

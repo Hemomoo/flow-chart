@@ -313,4 +313,3 @@ function onUndo() {
 </script>
 
 <style lang="scss" scoped></style>
-../utils/ContextMenuTool
