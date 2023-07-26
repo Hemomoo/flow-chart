@@ -58,6 +58,14 @@ onMounted(() => {
       </div>
     </div>
 
+    <div>
+      <h2 class="font-bold text-2xl">插件</h2>
+      <div class="flex gap-2">
+        <router-link to="/plugins/map">小地图</router-link>
+        <router-link to="/plugins/keyboard">快捷键</router-link>
+      </div>
+    </div>
+
   </div>
 </template>
 

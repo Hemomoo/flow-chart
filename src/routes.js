@@ -14,7 +14,9 @@ import Edge from "@/pages/edges/edge.vue";
 import Arrow from "@/pages/arrows/arrow.vue";
 import CustomArrow from "@/pages/arrows/customArrow.vue";
 import Interaction from "@/pages/interactions/interaction.vue";
-import Event from '@/pages/events/event.vue'
+import Event from "@/pages/events/event.vue";
+import Map from "@/pages/plugins/map.vue";
+import Keyboard from '@/pages/plugins/keyboard.vue'
 
 export const routes = [
   { path: "/", component: Index },
@@ -32,7 +34,9 @@ export const routes = [
   { path: "/arrows/arrow", component: Arrow },
   { path: "/arrows/customArrow", component: CustomArrow },
   { path: "/interactions/interaction", component: Interaction },
-  { path:"/events/event",component:Event},
+  { path: "/events/event", component: Event },
+  { path: "/plugins/map", component: Map },
+  { path: '/plugins/keyboard',component:Keyboard},
   { path: "/:path(.*)", component: NotFound },
 ];
 
