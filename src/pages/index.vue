@@ -33,8 +33,6 @@ onMounted(() => {
       <h2 class="font-bold text-2xl">边</h2>
       <div class="flex gap-2">
         <router-link to="/edges/edge">边</router-link>
-        <router-link to="/edges/arrow">箭头</router-link>
-        <router-link to="/edges/customArrow">自定义箭头</router-link>
       </div>
     </div>
     <!-- 箭头 -->
@@ -46,12 +44,20 @@ onMounted(() => {
       </div>
     </div>
     <!--交互  -->
-    <div>
+    <!-- <div>
       <h2 class="font-bold text-2xl">交互</h2>
       <div class="flex gap-2">
         <router-link to="/interactions/interaction">交互</router-link>
       </div>
+    </div> -->
+   <!-- 事件  -->
+    <div>
+      <h2 class="font-bold text-2xl">事件</h2>
+      <div class="flex gap-2">
+        <router-link to="/events/event">事件</router-link>
+      </div>
     </div>
+
   </div>
 </template>
 

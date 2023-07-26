@@ -4,8 +4,8 @@
 			<div class="cursor-pointer" @click="setGridSize">修改size</div>
 			<div class="cursor-pointer" @click="hideGrid">隐藏网格</div>
 			<div class="cursor-pointer" @click="showGrid">显示网格</div>
-			<div class="cursor-pointer" @click="clearGird">清除网格</div>
-			<div class="cursor-pointer" @click="drawGrid">绘制网格</div>
+			<!-- <div class="cursor-pointer" @click="clearGird">清除网格</div>
+			<div class="cursor-pointer" @click="drawGrid">绘制网格</div> -->
 		</div>
 		<div ref="container" class="h-full w-full" />
 	</div>
@@ -147,9 +147,9 @@ function showGrid() {
 }
 
 // 清除网格
-function clearGird() {
-	graph.clearGird();
-}
+// function clearGird() {
+// 	graph.clearGird();
+// }
 /*
  * drawGrid(options?: DrawGridOptions): this
  * 名称	类型	必选	默认值	描述

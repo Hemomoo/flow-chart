@@ -14,6 +14,7 @@ import Edge from "@/pages/edges/edge.vue";
 import Arrow from "@/pages/arrows/arrow.vue";
 import CustomArrow from "@/pages/arrows/customArrow.vue";
 import Interaction from "@/pages/interactions/interaction.vue";
+import Event from '@/pages/events/event.vue'
 
 export const routes = [
   { path: "/", component: Index },
@@ -31,7 +32,7 @@ export const routes = [
   { path: "/arrows/arrow", component: Arrow },
   { path: "/arrows/customArrow", component: CustomArrow },
   { path: "/interactions/interaction", component: Interaction },
-
+  { path:"/events/event",component:Event},
   { path: "/:path(.*)", component: NotFound },
 ];
 

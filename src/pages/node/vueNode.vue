@@ -12,6 +12,7 @@
   import { register, getTeleport } from '@antv/x6-vue-shape'
   import { ref, onMounted } from 'vue';
 
+  // 先注册节点
   register({
     shape: 'custom-vue-node',
     width: 100,
@@ -31,34 +32,10 @@
       })
 
       graph.addNode({
-        shape: 'custom-vue-node',
+        shape: 'custom-vue-node', // 将节点渲染到画布上
         x: 100,
         y: 60,
 
       })
-      graph.addNode({
-        x: 200,
-        y: 120,
-        width:100,
-        height:100,
-        tools: [
-            {
-              name: 'edge-editor',
-              setText: (text) => {
-                console.log('text: ', text);
-              },
-            },
-          ],
-      })
   })
-
-  // export default defineComponent({
-  //   name: 'App',
-  //   components: {
-  //     TeleportContainer,
-  //   },
-  //   mounted() {
-
-  //   },
-  // })
 </script>
